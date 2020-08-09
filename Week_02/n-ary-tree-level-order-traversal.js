@@ -1,29 +1,15 @@
 /**
- * // Definition for a Node.
- * function Node(val,children) {
- *    this.val = val;
- *    this.children = children;
- * };
+ * @param {string[]} strs
+ * @return {string[][]}
  */
-
-/**
- * @param {Node} root
- * @return {number[][]}
- */
-var levelOrder = function (root) {
+var groupAnagrams = function (strs) {
   const res = [];
-
-  function levelOrderNode(node, level) {
-    if (node) {
-      if (res.length <= level) {
-        res[level] = [];
-      }
-      res[level].push(node.val);
-      node.children.forEach((n) => {
-        levelOrderNode(n, level + 1);
-      });
-    }
+  let map = {};
+  for (let i = 0; i < strs.length; i++) {
+    const key = strs[i].split('').sort().join();
+    if (!map[key]) map[key] = [];
+    map[key].push(strs[i]);
   }
-  levelOrderNode(root, 0);
-  return res;
+
+  return Object.values(map);
 };
